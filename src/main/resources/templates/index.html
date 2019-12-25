@@ -6,10 +6,12 @@
     <script type="text/javascript" src="/javascript/js.js"></script>
 </head>
 <body>
-<button>Name</button>
+<button th:onclick="|getNameView()|">Name</button>
 <button th:onclick="|getEffects()|">Effect</button>
 <button th:onclick="|getFlavor()|">Flavor</button>
-<button>Species</button>
+<button th:onclick="|getSpecies()|">Species</button>
+<button th:onclick="|getLoginView()|">Login</button>
+
 
 <div id="content"></div>
 

@@ -1,0 +1,14 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Species</title>
+</head>
+<body>
+<div th:fragment="species">
+<p th:onclick="|getBySpecies('indica')|"><a>Indica</a></p>
+<p th:onclick="|getBySpecies('sativa')|"><a>Sativa</a></p>
+<p th:onclick="|getBySpecies('hybrid')|"><a>Hybrid</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weed</title>
+</head>
+<body>
+<div th:each="weed: ${weedBySearch}">
+    <p><span th:utext="${weed.name}"></span>    <span th:utext="${weed.race}"></span></p>
+    <p>Flavors: <span th:each="flavors: ${weed.flavors}"> <span th:utext="${flavors}"></span></span></p>
+    <p th:utext="${weed.desc}"></p>
+    <p>Effects:</p>
+    <p><span th:each="positive: ${weed.effects.positive}"><span th:utext="${positive}"></span></span></p>
+    <p><span th:each="negative: ${weed.effects.negative}"><span th:utext="${negative}"></span></span></p>
+    <p><span th:each="medical: ${weed.effects.medical}"><span th:utext="${medical}"></span></span></p>
+</div>
+</body>
+</html>

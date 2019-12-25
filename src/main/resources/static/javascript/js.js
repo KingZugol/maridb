@@ -29,3 +29,70 @@ function getWeedByFlavor(flavor){
     xhr.open("GET", "/flavors/" + flavor);
     xhr.send();
 }
+function getSpecies(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+
+    }
+    xhr.open("GET",  "/species");
+    xhr.send();
+}
+
+function getLoginView(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/login");
+    xhr.send();
+}
+
+function getBySpecies(species){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/species/" + species);
+    xhr.send();
+}
+
+function getNameView(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/name");
+    xhr.send();
+}
+
+function getNameSearchResults(){
+    var searchString = document.getElementById("nameSearch").value;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("POST","/name" );
+    xhr.send(searchString);
+}
+
+function getRegisterView(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/register");
+    xhr.send();
+}

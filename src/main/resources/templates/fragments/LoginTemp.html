@@ -1,0 +1,14 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="login" method="POST">
+    Username: <input type="text" name="username"> <br>
+    Password: <input type="text" name="pwd">
+    <input type="submit" Value="login">
+</form>
+<button th:onclick="|getRegisterView()|">Register</button>
+</body>
+</html>
