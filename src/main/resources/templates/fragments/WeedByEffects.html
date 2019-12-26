@@ -1,13 +1,13 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Weed</title>
+    <title>Effects</title>
 </head>
 <body>
-<div th:fragments="weedByEffects">
-    <span th:each="weed: ${weedByEffect}">
-        <span th:utext="${weed.effect}"></span>
-    </span>
+<div th:fragment="WeedByEffects">
+    <div th:each="weed: ${weedByEffects}">
+        <p>Name: <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|"></span> Effect: <span th:utext="${weed.effect}"></span></p>
+    </div>
 </div>
 </body>
 </html>

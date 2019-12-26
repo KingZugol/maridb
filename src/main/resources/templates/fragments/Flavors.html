@@ -4,7 +4,7 @@
     <title>Weed</title>
 </head>
 <body>
-<div th:fragments="flavors">
+<div th:fragment="flavors">
     <span th:each="weed: ${flavors}">
         <span th:utext="${weed}" th:data-flavor="${weed}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|" ></span>
     </span>

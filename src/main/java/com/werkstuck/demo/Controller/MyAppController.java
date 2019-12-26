@@ -58,9 +58,18 @@ public String postRegister(HttpServletRequest request, @RequestParam ("username"
 
 @GetMapping("/effects")
     public String getEffects(Model model){
-     String url = "http://strainapi.evanbusse.com/7wvDuw5/searchdata/effects";
-    WeedByEffect[] weedByEffect = restTemplate.getForObject(url, WeedByEffect[].class);
+    String url = "http://strainapi.evanbusse.com/7wvDuw5/searchdata/effects";
+    Effects[] weedByEffect = restTemplate.getForObject(url, Effects[].class);
     model.addAttribute("weedByEffect", weedByEffect);
+    return "fragments/Effects";
+}
+
+@GetMapping("/effects/{effect}")
+public String getWeedByEffects(Model model, @PathVariable("effect") String effect) throws UnsupportedEncodingException {
+    effect.toLowerCase();
+    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/effect/" + URLEncoder.encode(effect,StandardCharsets.UTF_8.toString());
+    WeedByEffect[] weedByEffects = restTemplate.getForObject(url, WeedByEffect[].class);
+    model.addAttribute("weedByEffects", weedByEffects);
     return "fragments/WeedByEffects";
 }
 @GetMapping("/flavors")
@@ -99,6 +108,22 @@ public String getBySpecies(@PathVariable ("type") String species, Model model){
 @GetMapping("/name")
     public String getNameView(){
     return "fragments/NameView";
+}
+@GetMapping("/name/{name}")
+public String getWeedComplete(@PathVariable("name") String name, Model model) throws UnsupportedEncodingException {
+    URLEncoder.encode(name, StandardCharsets.UTF_8.toString());
+    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + name;
+    WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
+
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedBySearch[0].getId();
+    WeedEffectsForName effect = restTemplate.getForObject(url, WeedEffectsForName.class);
+    weedBySearch[0].setEffects(effect);
+
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedBySearch[0].getId();
+    String[] flavor = restTemplate.getForObject(url, String[].class);
+    weedBySearch[0].setFlavors(flavor);
+    model.addAttribute("weedBySearch", weedBySearch);
+    return "fragments/WeedComplete";
 }
 @PostMapping("/name")
     public String getNameSearchResults(@RequestBody String searchString, Model model) throws UnsupportedEncodingException {

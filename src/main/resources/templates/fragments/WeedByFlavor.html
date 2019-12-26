@@ -5,15 +5,9 @@
     <title>Weed</title>
 </head>
 <body>
-<div th:fragments="flavors">
-    <span th:each="weed: ${flavors}">
-        <span th:utext="${weed}" th:data-flavor="${weed}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|" ></span>
-    </span>
-</div>
-
 <div th:fragment="WeedByFlavors">
     <div th:each="weed: ${WeedByFlavors}">
-        <p>Name: <span th:utext="${weed.name}"></span> Race: <span th:utext="${weed.race}"></span> Flavor: <span th:utext="${weed.flavor}"></span></p>
+        <p>Name: <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|"></span> Race: <span th:utext="${weed.race}"></span> Flavor: <span th:utext="${weed.flavor}"></span></p>
     </div>
 </div>
 </body>
