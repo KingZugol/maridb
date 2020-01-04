@@ -4,16 +4,16 @@
     <title>Weed</title>
 </head>
 <body>
-<div th:each="weed: ${weedBySearch}">
+<div style="text-align: left" th:each="weed: ${weedBySearch}">
     <p><span th:utext="${weed.name}"></span>    <span th:utext="${weed.race}"></span></p>
     <!-- Verlinkt auf die WeedByFlavor View -->
-    <p>Flavors: <span th:each="flavors: ${weed.flavors}" th:data-flavor="${flavors}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|"> <span th:utext="${flavors}"></span></span></p>
+    <p>Flavors: <span th:class="tag" th:each="flavors: ${weed.flavors}" th:data-flavor="${flavors}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|"> <span th:utext="${flavors}"></span></span></p>
     <p th:utext="${weed.desc}"></p>
     <p>Effects:</p>
     <!-- Verlinkt auf WeedByEffect View -->
-    <p><span th:each="positive: ${weed.effects.positive}" th:data-effect="${positive}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${positive}"></span></span></p>
-    <p><span th:each="negative: ${weed.effects.negative}" th:data-effect="${negative}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${negative}"></span></span></p>
-    <p><span th:each="medical: ${weed.effects.medical}" th:data-effect="${medical}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${medical}"></span></span></p>
+    <p>Positive: <span th:class="tag" th:each="positive: ${weed.effects.positive}" th:data-effect="${positive}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${positive}"></span></span></p>
+    <p>Negative: <span th:class="tag" th:each="negative: ${weed.effects.negative}" th:data-effect="${negative}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${negative}"></span></span></p>
+    <p>Medical: <span th:class="tag" th:each="medical: ${weed.effects.medical}" th:data-effect="${medical}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${medical}"></span></span></p>
 </div>
 </body>
 </html>

@@ -2,11 +2,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Weed</title>
+    <link rel="stylesheet" href="/css/basestyle.css">
 </head>
 <body>
 <div th:fragment="weedByEffects">
     <span th:each="weed: ${weedByEffect}">
-        <span th:utext="${weed.effect}" th:data-effect="${weed.effect}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|">.</span>
+        <span th:class="tag" th:utext="${weed.effect}" th:data-effect="${weed.effect}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|">.</span>
     </span>
 </div>
 </body>

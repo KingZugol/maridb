@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="WeedByFlavors">
-    <div th:each="weed: ${WeedByFlavors}">
+    <div style="text-align: left" th:each="weed: ${WeedByFlavors}">
         <p>Name: <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|"></span> Race: <span th:utext="${weed.race}"></span> Flavor: <span th:utext="${weed.flavor}"></span></p>
     </div>
 </div>

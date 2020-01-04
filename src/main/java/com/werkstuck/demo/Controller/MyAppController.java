@@ -11,9 +11,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @Controller
 public class MyAppController {
@@ -67,7 +64,7 @@ public String postRegister(HttpServletRequest request, @RequestParam ("username"
 @GetMapping("/effects/{effect}")
 public String getWeedByEffects(Model model, @PathVariable("effect") String effect) throws UnsupportedEncodingException {
     effect.toLowerCase();
-    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/effect/" + URLEncoder.encode(effect,StandardCharsets.UTF_8.toString());
+    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/effect/" + effect;
     WeedByEffect[] weedByEffects = restTemplate.getForObject(url, WeedByEffect[].class);
     model.addAttribute("weedByEffects", weedByEffects);
     return "fragments/WeedByEffects";
@@ -82,9 +79,9 @@ public String getWeedByEffects(Model model, @PathVariable("effect") String effec
 }
 
 @GetMapping("/flavors/{flavor}")
-    public String getWeedByFlavor(Model model, @PathVariable("flavor") String flavor) throws UnsupportedEncodingException {
-    flavor.toLowerCase();
-    String url ="http://strainapi.evanbusse.com/7wvDuw5/strains/search/flavor/" + URLEncoder.encode(flavor, StandardCharsets.UTF_8.toString());
+    public String getWeedByFlavor(Model model, @PathVariable("flavor") String flavor) {
+
+    String url ="http://strainapi.evanbusse.com/7wvDuw5/strains/search/flavor/" + flavor;
     WeedByFlavor[] weedByFlavors = restTemplate.getForObject(url, WeedByFlavor[].class);
     model.addAttribute("WeedByFlavors", weedByFlavors);
     return "fragments/WeedByFlavor";
@@ -98,7 +95,6 @@ public String getWeedByEffects(Model model, @PathVariable("effect") String effec
 
 @GetMapping("/species/{type}")
 public String getBySpecies(@PathVariable ("type") String species, Model model){
-    species.toLowerCase();
     String url ="http://strainapi.evanbusse.com/7wvDuw5/strains/search/race/" + species;
     Weed[] weedBySpecies = restTemplate.getForObject(url, Weed[].class);
     model.addAttribute("weed", weedBySpecies);
@@ -110,9 +106,7 @@ public String getBySpecies(@PathVariable ("type") String species, Model model){
     return "fragments/NameView";
 }
 @GetMapping("/name/{name}")
-public String getWeedComplete(@PathVariable("name") String name, Model model) throws UnsupportedEncodingException {
-
-    URLEncoder.encode(name, StandardCharsets.UTF_8.toString());
+public String getWeedComplete(@PathVariable("name") String name, Model model){
     String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + name;
     WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
     WeedCompleteObject weedComplete = weedBySearch[0];
@@ -131,10 +125,8 @@ public String getWeedComplete(@PathVariable("name") String name, Model model) th
 /* Problem: Bei manchen Namen kommen mehrere Ergebnisse zurück, zBsp.: Alaska liefert alle Grasssorten die Alaska in ihrem Namen haben. Brauchen Lösungsansatz
 *  Idee: Bei mehreren rückgabe alle mit Namen listen und dann da zur konkreten Produkt Seite gehen */
 @PostMapping("/name")
-    public String getNameSearchResults(@RequestBody String searchString, Model model) throws UnsupportedEncodingException {
-    String search = searchString;
-    URLEncoder.encode(search, StandardCharsets.UTF_8.toString());
-    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + search;
+public String getNameSearchResults(@RequestBody String searchString, Model model){
+    String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + searchString;
     WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
     WeedCompleteObject weedComplete = weedBySearch[0];
 

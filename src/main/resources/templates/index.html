@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Weed</title>
+    <link rel="stylesheet" href="/css/basestyle.css">
     <script type="text/javascript" src="/javascript/js.js"></script>
 </head>
 <body>
-<button th:onclick="|getNameView()|">Name</button>
-<button th:onclick="|getEffects()|">Effect</button>
-<button th:onclick="|getFlavor()|">Flavor</button>
-<button th:onclick="|getSpecies()|">Species</button>
-<button th:onclick="|getLoginView()|">Login</button>
+<button th:onclick="|getNameView()|" class="header-button">Name</button>
+<button th:onclick="|getEffects()|" class="header-button">Effect</button>
+<button th:onclick="|getFlavor()|" class="header-button">Flavor</button>
+<button th:onclick="|getSpecies()|" class="header-button">Species</button>
+<button th:onclick="|getLoginView()|" class="header-button login-button">Login</button>
 
 
 <div id="content"></div>

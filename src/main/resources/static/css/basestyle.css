@@ -1,0 +1,39 @@
+body {
+    margin: 0px;
+}
+.header-button{
+    padding: 30px 70px;
+    margin-right: -4px;
+    margin-left: -4px;
+}
+
+.login-button{
+    alignment: right;
+    position: relative;
+    left: 32%;
+}
+
+#content{
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 120px;
+    margin-right: 120px;
+}
+
+.tag {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 2px;
+    display: inline-block;
+}
+.tag:hover {
+    background: blue;
+}

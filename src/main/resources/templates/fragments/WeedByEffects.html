@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:fragment="WeedByEffects">
-    <div th:each="weed: ${weedByEffects}">
+    <div style="text-align: left" th:each="weed: ${weedByEffects}">
         <p>Name: <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|"></span> Effect: <span th:utext="${weed.effect}"></span></p>
     </div>
 </div>
