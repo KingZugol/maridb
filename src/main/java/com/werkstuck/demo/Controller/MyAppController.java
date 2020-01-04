@@ -111,35 +111,42 @@ public String getBySpecies(@PathVariable ("type") String species, Model model){
 }
 @GetMapping("/name/{name}")
 public String getWeedComplete(@PathVariable("name") String name, Model model) throws UnsupportedEncodingException {
+
     URLEncoder.encode(name, StandardCharsets.UTF_8.toString());
     String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + name;
     WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
+    WeedCompleteObject weedComplete = weedBySearch[0];
 
-    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedBySearch[0].getId();
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedComplete.getId();
+    System.out.println(url);
     WeedEffectsForName effect = restTemplate.getForObject(url, WeedEffectsForName.class);
-    weedBySearch[0].setEffects(effect);
+    weedComplete.setEffects(effect);
 
-    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedBySearch[0].getId();
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedComplete.getId();
     String[] flavor = restTemplate.getForObject(url, String[].class);
-    weedBySearch[0].setFlavors(flavor);
-    model.addAttribute("weedBySearch", weedBySearch);
+    weedComplete.setFlavors(flavor);
+    model.addAttribute("weedBySearch", weedComplete);
     return "fragments/WeedComplete";
 }
+/* Problem: Bei manchen Namen kommen mehrere Ergebnisse zurück, zBsp.: Alaska liefert alle Grasssorten die Alaska in ihrem Namen haben. Brauchen Lösungsansatz
+*  Idee: Bei mehreren rückgabe alle mit Namen listen und dann da zur konkreten Produkt Seite gehen */
 @PostMapping("/name")
     public String getNameSearchResults(@RequestBody String searchString, Model model) throws UnsupportedEncodingException {
     String search = searchString;
     URLEncoder.encode(search, StandardCharsets.UTF_8.toString());
     String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + search;
     WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
+    WeedCompleteObject weedComplete = weedBySearch[0];
 
-    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedBySearch[0].getId();
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedComplete.getId();
+    System.out.println(url);
     WeedEffectsForName effect = restTemplate.getForObject(url, WeedEffectsForName.class);
-    weedBySearch[0].setEffects(effect);
+    weedComplete.setEffects(effect);
 
-    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedBySearch[0].getId();
+    url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedComplete.getId();
     String[] flavor = restTemplate.getForObject(url, String[].class);
-    weedBySearch[0].setFlavors(flavor);
-    model.addAttribute("weedBySearch", weedBySearch);
+    weedComplete.setFlavors(flavor);
+    model.addAttribute("weedBySearch", weedComplete);
     return "fragments/WeedComplete";
 }
 }
