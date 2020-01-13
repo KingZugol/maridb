@@ -1,0 +1,35 @@
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Meine Posts</title>
+</head>
+<body>
+
+ <!--<form th:action="@{/posts}" th:object="${Post}" th:method="post">
+    Title : <input th:field="${Post.title}" type="text" name="title"/><br>
+    Your Text:
+<textarea th:field="*{body}" type="text" name="body"> </textarea><br>
+<button type="submit" name="action" value="save">save</button>
+</form> -->
+
+ <form action="/posts" method="Post" data-th-object="${Post}">
+     Title: <input type="text" name="title" field="${Post.title}"><br>
+     Text: <textarea type="text" name="body" field="*{body}"></textarea> </br>
+     <button type="submit" name="action" value="save">save</button>
+ </form>
+<main id="post">
+    <article th:each="p : ${allPost}">
+        <h2 class="Post" th:text="${p.title}">Post Title</h2>
+        <div class="date">
+            <i>Posted on</i>
+            <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">22-May-2016</span>
+           <!--<span th:if="${}" th:remove="tag"> -->
+         <!-- <i>by</i> -->
+        <!-- <span th:text="${p.author.username}">ABC</span>
+        </span> -->
+        </div>
+        <p class="content" th:utext="${p.body}">Post content</p>
+    </article>
+</main>
+</body>
+</html>
