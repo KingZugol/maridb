@@ -1,5 +1,6 @@
 package com.werkstuck.demo.Controller;
 
+import com.werkstuck.demo.Data.postDAO;
 import com.werkstuck.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ RestTemplate restTemplate = new RestTemplate();
 @Autowired
 public UserRepository repository;
 private User user = new User("test", "password");
+    @Autowired
+    public postDAO prep;
 
 
 
-@GetMapping("/login")
+    @GetMapping("/login")
 public String getLoginView(){
 
     return "fragments/LoginTemp.html";
@@ -52,6 +55,19 @@ public String postRegister(HttpServletRequest request, @RequestParam ("username"
     return "fragments/LoginTemp";
 
 }
+    @GetMapping("/posts")
+
+    public String getPosts(Model model) {
+    model.addAttribute("allPost",prep.findAll());
+    return "fragments/PostsView";
+   }
+   @PostMapping("/posts")
+   public String pPosts(Model model,   @ModelAttribute ("Post") Post post) {
+      Post newPost = new Post(post.getTitle(), post.getBody(), null);
+      prep.save(newPost);
+      model.addAttribute("post", newPost);
+      return "redirect:/posts";
+    }
 
 @GetMapping("/effects")
     public String getEffects(Model model){
