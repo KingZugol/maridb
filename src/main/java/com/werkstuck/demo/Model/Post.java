@@ -1,23 +1,33 @@
 package com.werkstuck.demo.Model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties
 public class Post {
-
-
-
     private Long id;
     private String title;
     private String body;
     private User author;
+    private int weedId;
 
-
-    public Post(String title, String body, User author) {
-
+    public Post(){}
+    public Post(String title, String body, User author, int weedId) {
+        this.weedId=weedId;
         this.title = title;
         this.body = body;
         this.author = author;
+    }
+
+    public int getWeedId() {
+        return weedId;
+    }
+
+    public void setWeedId(int weedId) {
+        this.weedId = weedId;
     }
 
     private Date date = new Date();
@@ -50,23 +60,31 @@ public class Post {
 
     @OneToOne
     public User getAuthor() {
-       return author;
+        return author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
-          }
+    }
+
     public Date getDate() {
         return date;
     }
+
     public void setDate(Date date) {
         this.date = date;
     }
 
     @Override
     public String toString() {
-        return "Post ["
-                + "id=" + id + ", "
-                + "title=" + title + ", body=" + body + ", author=" + author + "]";
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", author=" + author +
+                ", weedId=" + weedId +
+                ", date=" + date +
+                '}';
     }
 }
+

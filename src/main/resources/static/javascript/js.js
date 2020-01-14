@@ -118,3 +118,23 @@ function getRegisterView(){
     xhr.open("GET", "/register");
     xhr.send();
 }
+
+function sendPost(weedId, name){
+    var object = {
+        title : document.getElementById("commentTitle").value,
+        body: document.getElementById("commentBody").value,
+        author: null,
+        weedId: weedId};
+
+    var package= JSON.stringify(object);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("POST", "/posts/" + name);
+    xhr.send(package);
+}
+
+

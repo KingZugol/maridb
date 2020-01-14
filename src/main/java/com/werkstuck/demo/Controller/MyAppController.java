@@ -1,5 +1,7 @@
 package com.werkstuck.demo.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.werkstuck.demo.Data.postDAO;
 import com.werkstuck.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ RestTemplate restTemplate = new RestTemplate();
 @Autowired
 public UserRepository repository;
 private User user = new User("test", "password");
-    @Autowired
-    public postDAO prep;
+@Autowired
+public postDAO prep;
 
 
 
@@ -61,12 +63,12 @@ public String postRegister(HttpServletRequest request, @RequestParam ("username"
     model.addAttribute("allPost",prep.findAll());
     return "fragments/PostsView";
    }
-   @PostMapping("/posts")
-   public String pPosts(Model model,   @ModelAttribute ("Post") Post post) {
-      Post newPost = new Post(post.getTitle(), post.getBody(), null);
-      prep.save(newPost);
-      model.addAttribute("post", newPost);
-      return "redirect:/posts";
+   @PostMapping("/posts/{name}")
+    public String pPosts(Model model, @RequestBody String payload, @PathVariable("name") String name) throws JsonProcessingException {
+        Post newPost = new ObjectMapper().readValue(payload, Post.class);
+        prep.save(newPost);
+        model.addAttribute("post", newPost);
+        return "redirect:/name/" + name;
     }
 
 @GetMapping("/effects")
@@ -121,6 +123,7 @@ public String getBySpecies(@PathVariable ("type") String species, Model model){
     public String getNameView(){
     return "fragments/NameView";
 }
+
 @GetMapping("/name/{name}")
 public String getWeedComplete(@PathVariable("name") String name, Model model){
     String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + name;
@@ -135,13 +138,16 @@ public String getWeedComplete(@PathVariable("name") String name, Model model){
     url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedComplete.getId();
     String[] flavor = restTemplate.getForObject(url, String[].class);
     weedComplete.setFlavors(flavor);
+    model.addAttribute("allPost",prep.findByWeedId(weedComplete.getId()));
     model.addAttribute("weedBySearch", weedComplete);
+
     return "fragments/WeedComplete";
 }
 /* Problem: Bei manchen Namen kommen mehrere Ergebnisse zurück, zBsp.: Alaska liefert alle Grasssorten die Alaska in ihrem Namen haben. Brauchen Lösungsansatz
 *  Idee: Bei mehreren rückgabe alle mit Namen listen und dann da zur konkreten Produkt Seite gehen */
 @PostMapping("/name")
 public String getNameSearchResults(@RequestBody String searchString, Model model){
+
     String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + searchString;
     WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
     WeedCompleteObject weedComplete = weedBySearch[0];
@@ -155,6 +161,8 @@ public String getNameSearchResults(@RequestBody String searchString, Model model
     String[] flavor = restTemplate.getForObject(url, String[].class);
     weedComplete.setFlavors(flavor);
     model.addAttribute("weedBySearch", weedComplete);
+
+    model.addAttribute("allPost",prep.findByWeedId(weedComplete.getId()));
     return "fragments/WeedComplete";
 }
 }

@@ -13,10 +13,10 @@ public class postDAO implements PostRepository {
 private List <Post> posts = new ArrayList<>();
 
 public postDAO(){
-    posts.add(new Post("LOL", "Not LOL", null));
-    posts.add(new Post("LOL", "Not LOL", null));
-    posts.add(new Post("LOL", "Not LOL", null));
-    posts.add(new Post("LOL", "Not LOL", null));
+    posts.add(new Post("LOL", "Not LOL", null, 1));
+    posts.add(new Post("LOL", "Not LOL", null, 1));
+    posts.add(new Post("LOL", "Not LOL", null ,1));
+    posts.add(new Post("LOL", "Not Afpak", null,2156));
 }
 
     @Override
@@ -39,6 +39,15 @@ public postDAO(){
         return Optional.empty();
     }
 
+    public List<Post> findByWeedId(int weedId){
+        List<Post> temp = new ArrayList<>();
+        for(Post byId : posts){
+            if(weedId == byId.getWeedId()){
+                temp.add(byId);
+            }
+        }
+        return temp;
+     }
     @Override
     public void save(Post post) {
         this.posts.add(post);

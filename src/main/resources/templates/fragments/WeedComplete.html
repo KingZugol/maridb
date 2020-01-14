@@ -2,10 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Weed</title>
+    <script type="text/javascript" src="/javascript/js.js"></script>
 </head>
 <body>
 <div style="text-align: left" th:each="weed: ${weedBySearch}">
-    <p><span th:utext="${weed.name}"></span>    <span th:utext="${weed.race}"></span></p>
+    <p><span th:utext="${weed.name}"></span>    <span th:utext="${weed.race}"></span> <span th:utext="${weed.id}"></span></p>
     <!-- Verlinkt auf die WeedByFlavor View -->
     <p>Flavors: <span th:class="tag" th:each="flavors: ${weed.flavors}" th:data-flavor="${flavors}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|"> <span th:utext="${flavors}"></span></span></p>
     <p th:utext="${weed.desc}"></p>
@@ -14,6 +15,27 @@
     <p>Positive: <span th:class="tag" th:each="positive: ${weed.effects.positive}" th:data-effect="${positive}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${positive}"></span></span></p>
     <p>Negative: <span th:class="tag" th:each="negative: ${weed.effects.negative}" th:data-effect="${negative}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${negative}"></span></span></p>
     <p>Medical: <span th:class="tag" th:each="medical: ${weed.effects.medical}" th:data-effect="${medical}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${medical}"></span></span></p>
+
+    <div>
+        Title: <input id="commentTitle" type="text" name="title" ><br>
+        Text: <textarea id="commentBody" type="text" name="body" ></textarea> </br>
+    <button th:data-weedId="${weed.id}" th:data-name="${weed.name}" th:onclick="|sendPost(this.getAttribute('data-weedId'),this.getAttribute('data-name'))|">save</button>
+    </div>
+
+    <main id="post">
+        <article th:each="p : ${allPost}">
+            <h2 class="Post" th:text="${p.title}" >Post Title</h2>
+            <div class="date">
+                <i>Posted on</i>
+                <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">22-May-2016</span>
+                <!--<span th:if="${}" th:remove="tag"> -->
+                <!-- <i>by</i> -->
+                <!-- <span th:text="${p.author.username}">ABC</span>
+                </span> -->
+            </div>
+            <!-- Hier if Anweisung für weedId -->
+            <p class="content" th:utext="${p.body}">Post content</p>
+        </article> </main>
 </div>
 </body>
 </html>
