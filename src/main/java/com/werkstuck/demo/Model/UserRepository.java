@@ -1,9 +1,7 @@
 package com.werkstuck.demo.Model;
 
-import org.springframework.data.repository.CrudRepository;
+public interface UserRepository<T> {
 
-import java.util.List;
-
-public interface UserRepository extends CrudRepository<User, Long> {
-   User findByUsername(String username);
+   void save(T t);
+   void delete(T t);
 }

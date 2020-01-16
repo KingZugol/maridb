@@ -1,17 +1,10 @@
 package com.werkstuck.demo.Model;
 
-import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-public interface PostRepository  {
-    Iterable<Post> findAll();
-
-    Iterable<Post> findAllById(Iterable<Long> ids);
-
-    Optional<Post> findById(Long id);
-
-    void save(Post post);
-
-    void delete(Post post);
+public interface PostRepository<T>  {
+    List<T> findAll();
+    void save(T t);
+    void delete(T t);
 }

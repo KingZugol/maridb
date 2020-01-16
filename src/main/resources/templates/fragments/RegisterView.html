@@ -5,10 +5,10 @@
 </head>
 <body>
 <p>Register a new User:</p>
-<form action="register" method="POST">
-    Username: <input type="text" name="username"> <br>
-    Password: <input type="text" name="pwd"> <br>
-    <input type="submit" value="register">
-</form>
+
+    Username: <input type="text" id="username"> <br>
+    Password: <input type="text" id="pwd"> <br>
+    <button th:onclick="|sendRegistration()|">Register</button>
+
 </body>
 </html>

@@ -11,8 +11,8 @@
 <button th:onclick="|getEffects()|" class="header-button">Effect</button>
 <button th:onclick="|getFlavor()|" class="header-button">Flavor</button>
 <button th:onclick="|getSpecies()|" class="header-button">Species</button>
-<button th:onclick="|getLoginView()|" class="header-button login-button">Login</button>
-
+<button th:onclick="|getLoginView()|"  th:if="${session.isEmpty()}" class="header-button login-button" id="LoginButton"> Login</button>
+<button th:unless="${session.isEmpty()}" th:onclick="sendLogout()" class="header-button login-button" id="LogoutButton"> Logout</button>
 
 <div id="content"></div>
 

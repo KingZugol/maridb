@@ -14,9 +14,4 @@ public class MaridbApplication {
     public static void main(String[] args) {
         SpringApplication.run(MaridbApplication.class, args);
     }
-
-  //  @Bean(initMethod = "start", destroyMethod = "stop")
-  //  public Server inMemoryH2DatabaseServer() throws SQLException {
-  //      return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "8080");
-   // }
 }

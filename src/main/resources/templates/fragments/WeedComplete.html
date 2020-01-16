@@ -2,9 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Weed</title>
-    <script type="text/javascript" src="/javascript/js.js"></script>
 </head>
-<body>
+<body th:data-name="${weedBySearch.name}">
 <div style="text-align: left" th:each="weed: ${weedBySearch}">
     <p><span th:utext="${weed.name}"></span>    <span th:utext="${weed.race}"></span> <span th:utext="${weed.id}"></span></p>
     <!-- Verlinkt auf die WeedByFlavor View -->
@@ -16,26 +15,28 @@
     <p>Negative: <span th:class="tag" th:each="negative: ${weed.effects.negative}" th:data-effect="${negative}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${negative}"></span></span></p>
     <p>Medical: <span th:class="tag" th:each="medical: ${weed.effects.medical}" th:data-effect="${medical}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|"> <span th:utext="${medical}"></span></span></p>
 
-    <div>
-        Title: <input id="commentTitle" type="text" name="title" ><br>
-        Text: <textarea id="commentBody" type="text" name="body" ></textarea> </br>
-    <button th:data-weedId="${weed.id}" th:data-name="${weed.name}" th:onclick="|sendPost(this.getAttribute('data-weedId'),this.getAttribute('data-name'))|">save</button>
+    <p th:if="${session.isEmpty()}"> Pleas Log in to comment</p>
+    <div th:unless="${session.isEmpty()}">
+        Title: <input id="commentTitle" type="text" name="title"><br>
+        Text: <textarea id="commentBody" type="text" name="body"></textarea> </br>
+    <button th:data-userId="${session.id}" th:data-author="${session.name}" th:data-weedId="${weed.id}" th:data-name="${weed.name}" th:onclick="|sendPost(this.getAttribute('data-weedId'),this.getAttribute('data-name'),this.getAttribute('data-author'), this.getAttribute('data-userId'))|">save</button>
     </div>
 
-    <main id="post">
-        <article th:each="p : ${allPost}">
+    <main th:fragment="PostsBlock" id="post">
+        <article th:id="${p.postId}" th:each="p : ${allPost}" th:class="comment-block">
             <h2 class="Post" th:text="${p.title}" >Post Title</h2>
             <div class="date">
                 <i>Posted on</i>
-                <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">22-May-2016</span>
-                <!--<span th:if="${}" th:remove="tag"> -->
-                <!-- <i>by</i> -->
-                <!-- <span th:text="${p.author.username}">ABC</span>
-                </span> -->
+                <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}" ></span>
+                 <i>by</i>
+                <span th:text="${p.author}"></span>
+                </span>
             </div>
-            <!-- Hier if Anweisung für weedId -->
-            <p class="content" th:utext="${p.body}">Post content</p>
-        </article> </main>
+            <div><p class="content" th:utext="${p.body}">Post content</p></div>
+            <br>
+            <button th:if="${not session.isEmpty()} and ${p.userId} == ${session.id}" th:data-postId="${p.postId}" th:onclick="|editComment1(this.getAttribute('data-postId'),this.getAttribute('data-name'))|"> Edit Comment</button>
+            <button th:if="${not session.isEmpty()} and ${p.userId} == ${session.id}" th:data-postId="${p.postId}" th:onclick="|sendCommentDelete(this.getAttribute('data-name'), this.getAttribute('data-postId'))|">Delete Comment</button>
+        </article></main>
 </div>
 </body>
 </html>

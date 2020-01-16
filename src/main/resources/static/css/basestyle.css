@@ -1,6 +1,10 @@
 body {
     margin: 0px;
 }
+.comment-block{
+    border-style: solid;
+    border-width: 1px;
+}
 .header-button{
     padding: 30px 70px;
     margin-right: -4px;

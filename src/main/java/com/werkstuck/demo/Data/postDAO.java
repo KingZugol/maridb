@@ -9,34 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class postDAO implements PostRepository {
+public class postDAO implements PostRepository<Post> {
 private List <Post> posts = new ArrayList<>();
 
 public postDAO(){
-    posts.add(new Post("LOL", "Not LOL", null, 1));
-    posts.add(new Post("LOL", "Not LOL", null, 1));
-    posts.add(new Post("LOL", "Not LOL", null ,1));
-    posts.add(new Post("LOL", "Not Afpak", null,2156));
+    posts.add(new Post("LOL", "Not LOL", null, 1, 1));
+    posts.add(new Post("LOL", "Not LOL", null, 1,1));
+    posts.add(new Post("LOL", "Not LOL", null ,1, 1));
+    posts.add(new Post("LOL", "Not Afpak", null,2156, 1));
 }
 
     @Override
     public List<Post> findAll() {
-
     return this.posts;
-    }
-
-    @Override
-    public Iterable<Post> findAllById(Iterable<Long> ids) {
-        return null;
-    }
-
-
-
-
-
-    @Override
-    public Optional<Post> findById(Long id) {
-        return Optional.empty();
     }
 
     public List<Post> findByWeedId(int weedId){
@@ -48,17 +33,35 @@ public postDAO(){
         }
         return temp;
      }
+    public Post findPost(int postId){
+        int index = 0;
+        for(Post byId : posts){
+            if(postId == byId.getPostId()){
+                index = posts.indexOf(byId);
+            }
+        }
+        return posts.get(index);
+    }
+
     @Override
     public void save(Post post) {
         this.posts.add(post);
 
     }
 
+    public void put(Post post, Post update) {
+        post.setWeedId(update.getWeedId());
+        post.setAuthor(update.getAuthor());
+        post.setTitle(update.getTitle());
+        post.setUserId(update.getUserId());
+        post.setBody(update.getBody());
+        posts.add(post);
+    }
 
 
     @Override
     public void delete(Post post) {
-
+        this.posts.remove(post);
     }
 
 

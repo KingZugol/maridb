@@ -9,6 +9,8 @@ function getEffects(){
     xhr.send()
 }
 
+
+
 function getWeedByEffect(effect){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -41,6 +43,7 @@ function getWeedByFlavor(flavor){
     xhr.open("GET", "/flavors/" + flavor);
     xhr.send();
 }
+
 function getSpecies(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function (){
@@ -61,6 +64,33 @@ function getLoginView(){
         }
     }
     xhr.open("GET", "/login");
+    xhr.send();
+}
+
+function sendLogin(){
+    var data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    }
+    var payload= JSON.stringify(data);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            window.location.reload();
+        }
+    }
+    xhr.open("POST", "/login");
+    xhr.send(payload);
+}
+
+function sendLogout(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            window.location.reload();
+        }
+    }
+    xhr.open("GET", "/logout");
     xhr.send();
 }
 
@@ -108,6 +138,7 @@ function getWeedComplete(name){
     xhr.open("GET","/name/" + name);
     xhr.send();
 }
+
 function getRegisterView(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -119,14 +150,33 @@ function getRegisterView(){
     xhr.send();
 }
 
-function sendPost(weedId, name){
+function sendRegistration(){
+
+    var data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("pwd").value
+    };
+
+    var payload = JSON.stringify(data);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("POST", "/register");
+    xhr.send(payload);
+}
+
+function sendPost(weedId, name, author, userId){
     var object = {
+        userId: userId,
         title : document.getElementById("commentTitle").value,
         body: document.getElementById("commentBody").value,
-        author: null,
+        author: author,
         weedId: weedId};
 
-    var package= JSON.stringify(object);
+    var payload= JSON.stringify(object);
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
@@ -134,7 +184,48 @@ function sendPost(weedId, name){
         }
     }
     xhr.open("POST", "/posts/" + name);
-    xhr.send(package);
+    xhr.send(payload);
 }
 
+function sendCommentDelete(name, payload){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("post").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("Delete", "/posts/" + name);
+    xhr.send(payload);
+}
 
+function editComment1(id){
+    console.log(name);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById(id).innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/posts/edit/" + id);
+    xhr.send();
+}
+
+function sendEditConfirm(weedId, author, userId){
+    var object = {
+        userId: userId,
+        title : document.getElementById("editTitle").value,
+        body: document.getElementById("editBody").value,
+        author: author,
+        weedId: weedId};
+
+    var payload= JSON.stringify(object);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("post").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("PUT", "/posts/");
+    xhr.send(payload);
+}

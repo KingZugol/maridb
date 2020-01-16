@@ -1,25 +1,39 @@
 package com.werkstuck.demo.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
-import javax.persistence.*;
 
-@Entity
+
+
 @JsonIgnoreProperties
 public class Post {
-    private Long id;
+
+    private static int ID_COUNTER = 0;
+    private int postId;
+    private int userId;
     private String title;
     private String body;
-    private User author;
+    private String author;
     private int weedId;
 
-    public Post(){}
-    public Post(String title, String body, User author, int weedId) {
-        this.weedId=weedId;
+    public Post(){
+        this.postId = ID_COUNTER++;
+    }
+    public Post(String title, String body, String author, int weedId, int userId) {
+        this.postId = ID_COUNTER++;
+        this.weedId = weedId;
         this.title = title;
         this.body = body;
         this.author = author;
+        this.userId  = userId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public int getWeedId() {
@@ -31,16 +45,6 @@ public class Post {
     }
 
     private Date date = new Date();
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -58,15 +62,13 @@ public class Post {
         this.body = body;
     }
 
-    @OneToOne
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
-
     public Date getDate() {
         return date;
     }
@@ -75,13 +77,22 @@ public class Post {
         this.date = date;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
-                "id=" + id +
+                "postId=" + postId +
+                ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
-                ", author=" + author +
+                ", author='" + author + '\'' +
                 ", weedId=" + weedId +
                 ", date=" + date +
                 '}';

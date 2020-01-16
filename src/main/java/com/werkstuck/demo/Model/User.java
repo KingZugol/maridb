@@ -2,33 +2,21 @@ package com.werkstuck.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 @JsonIgnoreProperties
 public class User {
 
-    private Long id;
+    private static int ID_COUNTER = 0;
+    private int userId;
     private String username;
     private String password;
 
-    public User(){}
-
+    public User(){
+        this.userId = ID_COUNTER++;
+    }
     public User(String username, String password) {
+        this.userId = ID_COUNTER++;
         this.username = username;
         this.password = password;
-    }
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -46,7 +34,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
@@ -55,4 +43,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
+
