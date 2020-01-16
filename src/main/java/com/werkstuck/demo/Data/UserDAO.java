@@ -6,28 +6,28 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 @Repository
-public class UserDAO implements UserRepository<User> {
+public class userDAO implements UserRepository {
     private List<User> users = new ArrayList<>();
+
+    public userDAO() {
+        users.add(new User("Bent", "leicht"));
+    }
+
     @Override
-    public void save(User user) {
+    public User findByUsername(String username) {
+       int usr=0;
+        for (int i = 0; i < users.size(); i++) {
+            if (this.users.get(i).equals(username)) {
+               usr=i;
+            }
+        } return this.users.get(usr);
+    }
+    @Override
+    public void save(User user){
         users.add(user);
     }
-
-
-    public User findByUsername(String username) {
-        int index = -1;
-        for(User user : users){
-            if(user.getUsername().equals(username)){
-                index = users.indexOf(user);
-            }
-        }
-        return users.get(index);
-    }
-
-    @Override
-    public void delete(User user) {
-        users.remove(user);
-    }
 }
+
+
