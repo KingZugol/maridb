@@ -19,6 +19,10 @@ public class Post {
     public Post(){
         this.postId = ID_COUNTER++;
     }
+    public Post(String title, String body){
+        this.title = title;
+        this.body = body;
+    }
     public Post(String title, String body, String author, int weedId, int userId) {
         this.postId = ID_COUNTER++;
         this.weedId = weedId;

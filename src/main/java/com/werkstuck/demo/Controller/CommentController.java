@@ -39,13 +39,16 @@ public class CommentController {
         model.addAttribute("Post", editPost);
         return "fragments/EditComment";
     }
-
+/* PostID über Header schicken */
     @PutMapping("/posts/")
-    public String putEditComment(Model model, @RequestBody String payload) throws JsonProcessingException {
-        Post editPost = new ObjectMapper().readValue(payload, Post.class);
-        Post toUpdatePost = prep.findPost(editPost.getPostId());
-        prep.put(toUpdatePost, editPost);
-        model.addAttribute("allPost", prep.findByWeedId(editPost.getWeedId()));
+    public String putEditComment(Model model,@RequestBody String payload, @RequestHeader("postId") int postId) throws JsonProcessingException {
+        Post toUpdatePost = prep.findPost(postId);
+        Post editData = new ObjectMapper().readValue(payload, Post.class);
+        String[] editParam =new  String[2];
+        editParam[0] = editData.getTitle();
+        editParam[1] = editData.getBody();
+        prep.update(toUpdatePost, editParam);
+        model.addAttribute("allPost", prep.findByWeedId(toUpdatePost.getWeedId()));
         return "fragments/WeedComplete :: PostsBlock";
 
     }

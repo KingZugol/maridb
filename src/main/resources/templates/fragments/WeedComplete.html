@@ -34,7 +34,7 @@
             </div>
             <div><p class="content" th:utext="${p.body}">Post content</p></div>
             <br>
-            <button th:if="${not session.isEmpty()} and ${p.userId} == ${session.id}" th:data-postId="${p.postId}" th:onclick="|editComment1(this.getAttribute('data-postId'),this.getAttribute('data-name'))|"> Edit Comment</button>
+            <button th:if="${not session.isEmpty()} and ${p.userId} == ${session.id}" th:data-postId="${p.postId}" th:onclick="|editComment(this.getAttribute('data-postId'),this.getAttribute('data-name'))|"> Edit Comment</button>
             <button th:if="${not session.isEmpty()} and ${p.userId} == ${session.id}" th:data-postId="${p.postId}" th:onclick="|sendCommentDelete(this.getAttribute('data-name'), this.getAttribute('data-postId'))|">Delete Comment</button>
         </article></main>
 </div>

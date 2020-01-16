@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
      JS auf eventhandler ändern
      CSS fertig machen
      präsentation
-     CustomHeader implementieren
         */
 @Controller
 public class ViewController {

@@ -198,7 +198,7 @@ function sendCommentDelete(name, payload){
     xhr.send(payload);
 }
 
-function editComment1(id){
+function editComment(id){
     console.log(name);
 
     var xhr = new XMLHttpRequest();
@@ -211,15 +211,12 @@ function editComment1(id){
     xhr.send();
 }
 
-function sendEditConfirm(weedId, author, userId){
-    var object = {
-        userId: userId,
-        title : document.getElementById("editTitle").value,
-        body: document.getElementById("editBody").value,
-        author: author,
-        weedId: weedId};
-
-    var payload= JSON.stringify(object);
+function sendEditConfirm(postId){
+    var data = {
+        title: document.getElementById("editTitle").value,
+        body: document.getElementById("editBody").value
+    }
+    var payload = JSON.stringify(data);
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
@@ -227,5 +224,6 @@ function sendEditConfirm(weedId, author, userId){
         }
     }
     xhr.open("PUT", "/posts/");
+    xhr.setRequestHeader("postId", postId);
     xhr.send(payload);
 }

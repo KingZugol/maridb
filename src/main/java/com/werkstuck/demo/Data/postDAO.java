@@ -49,13 +49,9 @@ public postDAO(){
 
     }
 
-    public void put(Post post, Post update) {
-        post.setWeedId(update.getWeedId());
-        post.setAuthor(update.getAuthor());
-        post.setTitle(update.getTitle());
-        post.setUserId(update.getUserId());
-        post.setBody(update.getBody());
-        posts.add(post);
+    public void update(Post post,String[] params) {
+        post.setTitle(params[0]);
+        post.setBody(params[1]);
     }
 
 
