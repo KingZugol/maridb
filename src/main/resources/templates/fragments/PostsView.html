@@ -15,6 +15,7 @@
  <form action="/posts" method="Post" data-th-object="${Post}">
      Title: <input type="text" name="title" field="${Post.title}"><br>
      Text: <textarea type="text" name="body" field="*{body}"></textarea> </br>
+     Author: <input type="text" name="username" field="${Post.username}"><br>
      <button type="submit" name="action" value="save">save</button>
  </form>
 <main id="post">
@@ -24,9 +25,10 @@
             <i>Posted on</i>
             <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">22-May-2016</span>
            <!--<span th:if="${}" th:remove="tag"> -->
-         <!-- <i>by</i> -->
-        <!-- <span th:text="${p.author.username}">ABC</span>
-        </span> -->
+         <i>by</i>
+
+         <span th:text="${p.username}">ABC</span>
+        </span>
         </div>
         <p class="content" th:utext="${p.body}">Post content</p>
     </article>

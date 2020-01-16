@@ -1,6 +1,8 @@
 package com.werkstuck.demo.Controller;
 
 import com.werkstuck.demo.Data.postDAO;
+import com.werkstuck.demo.Data.productDAO;
+import com.werkstuck.demo.Data.userDAO;
 import com.werkstuck.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,20 +12,22 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @Controller
 public class MyAppController {
 RestTemplate restTemplate = new RestTemplate();
 @Autowired
-public UserRepository repository;
-private User user = new User("test", "password");
+public userDAO repository;
     @Autowired
     public postDAO prep;
+
+    @Autowired
+    public productDAO prodrep;
 
 
 
@@ -42,10 +46,20 @@ public String postLogin(Model model,HttpServletRequest request, @RequestParam ("
         Cookie userName = new Cookie("user", loginUser.getUsername());
         userName.setMaxAge(30*60);
         model.addAttribute("name", username);
+        return "fragments/LoginSuccess.html";
+}
+    else return "fragments/LoginTemp.html";
+}
+    @PostMapping("/logout")
+public String postLogout(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute(null,null);
         return "fragments/LoginSuccess";
-}
-    else return "fragments/LoginTemp";
-}
+    }
+    @GetMapping("/logout")
+    public String getLogout(){
+        return "index";
+    }
 @GetMapping("/register")
 public String getRegisterView(){
     return "fragments/RegisterView";
@@ -66,9 +80,10 @@ public String postRegister(HttpServletRequest request, @RequestParam ("username"
    }
    @PostMapping("/posts")
    public String pPosts(Model model,   @ModelAttribute ("Post") Post post) {
-      Post newPost = new Post(post.getTitle(), post.getBody(), null);
+        Post newPost = new Post(post.getTitle(), post.getBody(), post.getUsername());
       prep.save(newPost);
       model.addAttribute("post", newPost);
+
       return "redirect:/posts";
     }
 
@@ -133,5 +148,27 @@ public String getBySpecies(@PathVariable ("type") String species, Model model){
     model.addAttribute("weedBySearch", weedBySearch);
     return "fragments/WeedComplete";
 }
+@GetMapping("/static")
+    public String secret(Model model){
+        model.addAttribute("products",prodrep.getAll() );
+        return "static";
 }
+@RequestMapping(value="/static/{id}",method=RequestMethod.GET )
+    public String secretFindToDel(Model model, @PathVariable int id, HttpServletResponse response){
+    response.addHeader("Custom-GET-Header","get");
+       model.addAttribute("products",prodrep.findById(id) );
+      return "static"; }
 
+@RequestMapping(value="/static/delete/{id}", method=RequestMethod.DELETE)
+public void deleteProduct(@PathVariable("id") int id, HttpServletResponse response){
+        response.addHeader("Custom-Delete-Header","delete");
+Product prod=prodrep.findById(id);
+this.prodrep.delete(prod);
+
+}
+@RequestMapping(value="/static/update/{id}", method=RequestMethod.PUT)
+public void updatePrice(@PathVariable("id") int id, @RequestBody Product product, HttpServletResponse response){
+    response.addHeader("Custom-Update-Header","update");
+        prodrep.update(product,id);
+}
+}

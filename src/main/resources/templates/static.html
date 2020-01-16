@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/table.css">
+</head>
+<body class="body">
+<ul class="lists">
+    <h1 class="love ">Love is...</h1>
+    <li>“I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.”
+        ― Marilyn Monroe</li>
+    <li>“Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.”
+        ― Lao Tzu</li>
+    <li>“Love looks not with the eyes, but with the mind,
+        And therefore is winged Cupid painted blind.”
+        ― William Shakespeare, A Midsummer Night's Dream </li>
+    <img class="jpg" src="jpg/1.jpg" alt="Selfhtml">
+</ul>
+<div class="banner">
+    <div class="randomtext">
+        <h1>“The true revolutionary is guided by great feelings of love.”</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </p>
+
+    </div>
+
+</div>
+<table class="rp">
+    <tr>
+        <td rowspan="2">There is 2 Types of tables...</td>
+        <td class="love">rowspan</td>
+    </tr>
+    <tr>
+        <td>colspan</td>
+    </tr>
+</table>
+
+<table class="cp">
+    <tr>
+        <th>Part</th>
+        <th>Mark</th>
+    </tr>
+    <tr>
+        <td>Part A</td>
+        <td>1,0</td>
+    </tr>
+    <tr>
+        <td>Part B</td>
+        <td>1,0</td>
+    </tr>
+    <tr>
+        <td colspan="2">Mark: 1,0</td>
+    </tr>
+</table>
+
+<table class="table1">
+
+    <tr class="table1tr">
+        <th>Item</th>
+        <th>ID</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:utext="${product.name}">...</td> <td th:utext="${product.id}">...</td>
+    </tr>
+
+</table>
+<form class="delfield" action="/static/delete/{id}" th:object="${products}" method="DELETE">
+    <th>ID:</th>
+    <input type="text" name="id" field="${products.id}" />
+    <input class="subt" type="submit" value="Delete" />
+</form>
+
+<form class="putfield" action="/static/delete/{id}" th:object="${products}" method="DELETE">
+    <th>ID:</th>
+    <input type="text" name="id" field="${products.id}" />
+    <th>Item:</th>
+    <input type="text" name="name" field="${products.name}" />
+    <input class="subt" type="submit" value="Update" />
+</form>
+
+
+
+</body>
+<footer class="footer">
+    <p>Created by our little group</p>
+    <p>Bring me back: <a href=http://127.0.0.1:8080>
+        Homepage</a></p>
+</footer>
+</html>

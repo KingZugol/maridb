@@ -96,3 +96,4 @@ function getRegisterView(){
     xhr.open("GET", "/register");
     xhr.send();
 }
+

@@ -1,7 +1,7 @@
 package com.werkstuck.demo.Model;
 import java.util.Date;
 import javax.persistence.*;
-
+import com.werkstuck.demo.Model.User;
 @Entity
 public class Post {
 
@@ -10,17 +10,20 @@ public class Post {
     private Long id;
     private String title;
     private String body;
-    private User author;
+
+    private String username;
 
 
-    public Post(String title, String body, User author) {
+
+    public Post(String title, String body,  String username) {
 
         this.title = title;
         this.body = body;
-        this.author = author;
+        this.username=username;
     }
 
     private Date date = new Date();
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,15 +50,15 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
-
-    @OneToOne
-    public User getAuthor() {
-       return author;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
-          }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
     public Date getDate() {
         return date;
     }
@@ -63,10 +66,15 @@ public class Post {
         this.date = date;
     }
 
+
     @Override
     public String toString() {
-        return "Post ["
-                + "id=" + id + ", "
-                + "title=" + title + ", body=" + body + ", author=" + author + "]";
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+               ", username='" + username + '\'' +
+                ", date=" + date +
+                '}';
     }
 }
