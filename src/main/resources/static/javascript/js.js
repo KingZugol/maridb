@@ -1,7 +1,8 @@
+//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen
 function getEffects(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
-        if(xhr.readyState==4 && xhr.status==200){
+        if(xhr.readyState===4 && xhr.status===200){
             document.getElementById("content").innerHTML = xhr.response;
         }
     }
@@ -9,8 +10,7 @@ function getEffects(){
     xhr.send()
 }
 
-
-
+//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen. Gesuchte Wirkung wird als Pfadvariable weitergegeben
 function getWeedByEffect(effect){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -22,6 +22,7 @@ function getWeedByEffect(effect){
     xhr.send();
 }
 
+//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen
 function getFlavor() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -32,7 +33,7 @@ function getFlavor() {
     xhr.open("GET", "/flavors");
     xhr.send()
 }
-
+//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen. Gesuchter Geschmack wird als Pfadvariable weitergegeben.
 function getWeedByFlavor(flavor){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -43,7 +44,7 @@ function getWeedByFlavor(flavor){
     xhr.open("GET", "/flavors/" + flavor);
     xhr.send();
 }
-
+//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen
 function getSpecies(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function (){
@@ -56,6 +57,7 @@ function getSpecies(){
     xhr.send();
 }
 
+//Login View wird in Element Content geladen
 function getLoginView(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -66,7 +68,8 @@ function getLoginView(){
     xhr.open("GET", "/login");
     xhr.send();
 }
-
+//Werte von Inputfeldern username und password werden als RequestBody an UserManagementControlle geschickt.
+//Seite wird neu geladen wenn Controller fertig ist.
 function sendLogin(){
     var data = {
         username: document.getElementById("username").value,
@@ -82,7 +85,7 @@ function sendLogin(){
     xhr.open("POST", "/login");
     xhr.send(payload);
 }
-
+//AJAX Abfrage an /logout, JSESSIONID wird invalidiert und gelöscht.
 function sendLogout(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -93,7 +96,7 @@ function sendLogout(){
     xhr.open("GET", "/logout");
     xhr.send();
 }
-
+//AJAX abfrage an /species/ + Pfadvariable
 function getBySpecies(species){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -104,7 +107,7 @@ function getBySpecies(species){
     xhr.open("GET", "/species/" + species);
     xhr.send();
 }
-
+//Name
 function getNameView(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
