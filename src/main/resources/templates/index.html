@@ -4,8 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Weed</title>
-  <script type="text/javascript" src="/static/js.js"></script>
+  <script type="text/javascript" src="../js/js.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/table.css">
+  <link rel="stylesheet" href="/css/basestyle.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
@@ -16,26 +20,20 @@
   <button th:onclick="|getLoginView()|" th:if="${session.isEmpty()}" class="header-button login-button" id="LoginButton"> Login</button>
   <button th:unless="${session.isEmpty()}" th:onclick="sendLogout()" class="header-button login-button" id="LogoutButton"> Logout</button>
 
-  <div id="content"></div>
-  </div>
-  <div class="banner">
-    <div class="randomtext">
-      <h1> We believe that there are no Data you should be ashamed of...</h1>
+  <div id="content">
+    <div class="banner">
+      <div class="randomtext">
+        <h1> We believe that there are no Data you should be ashamed of...</h1>
 
-      You can use this Website to find your favourite plant.<br>
-      You will never find it on the Internet.<br>
-      Use "Name" to find your plant by name.<br>
-      Use "Effect" if you want to feel something special.<br>
-      Use "Flavor" to look for something tasty. <br>
-      Use "Species" to find new plants by species. <br>
-      Use our website responsible :) <br>
+        You can use this Website to find your favourite plant.<br>
+        You will never find it on the Internet.<br>
+        Use "Name" to find your plant by name.<br>
+        Use "Effect" if you want to feel something special.<br>
+        Use "Flavor" to look for something tasty. <br>
+        Use "Species" to find new plants by species. <br>
+        Use our website responsible :) <br>
 
-      </p>
-
-
-    </div>
-    <img class="pic" src="jpg/img2.jpg" alt="Selfsame">
+        </p>
+        <img class="pic" src="jpg/img2.jpg" alt="Selfsame">
+      </div></div></div>
 </body>
-<footer class="footer">
-  <p>Created by our little group</p>
-  <p>It might be interesting: <a href=/static> Static Webpage</a> </p> </footer> </html>

@@ -4,11 +4,14 @@
     <title>Register</title>
 </head>
 <body>
-<p>Register a new User:</p>
 
-    Username: <input type="text" id="username"> <br>
-    Password: <input type="text" id="pwd"> <br>
-    <button th:onclick="|sendRegistration()|">Register</button>
-
+<div th:class="login-page">
+    <p>Register a new User:</p>
+    Username:
+    <input type="text" id="username"> <br>
+    Password:
+    <input type="text" id="pwd"> <br>
+    <button th:class="log-register-button" th:onclick="|sendRegistration()|">Register</button>
+</div>
 </body>
 </html>

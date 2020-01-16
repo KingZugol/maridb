@@ -2,7 +2,7 @@ package com.werkstuck.demo.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.werkstuck.demo.Data.UserDAO;
+import com.werkstuck.demo.Data.userDAO;
 import com.werkstuck.demo.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class UserManagementController {
     @Autowired
-    public UserDAO users;
+    public userDAO users;
 
     @GetMapping("/login")
     public String getLoginView(){

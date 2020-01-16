@@ -1,12 +1,15 @@
 package com.werkstuck.demo.Controller;
 
 import com.werkstuck.demo.Data.postDAO;
+import com.werkstuck.demo.Data.productDAO;
 import com.werkstuck.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
 /* todo: ErrorController mit thymeleaf,
@@ -19,6 +22,8 @@ public class ViewController {
     RestTemplate restTemplate = new RestTemplate();
     @Autowired
     public postDAO prep;
+    @Autowired
+    public productDAO prodrep;
 
     //Stellt API abfrage an strainapi für alle Effekte
     //restTemplate marshallt die Antwort in eine Array von der Klasse weedByEffekt
@@ -117,6 +122,24 @@ public class ViewController {
         model.addAttribute("weedBySearch", weedComplete);
         model.addAttribute("allPost",prep.findByWeedId(weedComplete.getId()));
         return "fragments/WeedComplete";
+    }
+    @GetMapping("/static")
+    public String getStaticPage(Model model){
+        model.addAttribute("products", prodrep.getAll());
+        return "static";
+    }
+
+    @RequestMapping(value="/static/delete/{id}", method=RequestMethod.DELETE)
+    public void deleteProduct(@PathVariable("id") int id, HttpServletResponse response){
+        response.addHeader("Custom-Delete-Header","delete");
+        Product prod=prodrep.findById(id);
+        this.prodrep.delete(prod);
+
+    }
+    @RequestMapping(value="/static/update/{id}", method=RequestMethod.PUT)
+    public void updatePrice(@PathVariable("id") int id, @RequestBody Product product, HttpServletResponse response){
+        response.addHeader("Custom-Update-Header","update");
+        prodrep.update(product,id);
     }
 }
 

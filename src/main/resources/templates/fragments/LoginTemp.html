@@ -4,11 +4,11 @@
     <title>Login</title>
 </head>
 <body>
-    Username: <input type="text" id="username"> <br>
-    Password: <input type="text" id="password"> <br>
-    <button id="name" th:data-name="${session.name}" th:onclick="|sendLogin()|">Login</button>
-    <br>
-    <button th:onclick="|getRegisterView()|">Register</button>
-
+   <div th:class="login-page">
+       <p>Username:</p> <input type="text" id="username"> <br>
+    <p>Password:</p> <input type="text" id="password"> <br>
+    <button th:class="log-register-button" id="name" th:data-name="${session.name}" th:onclick="|sendLogin()|">Login</button>
+    <button th:class="log-register-button" th:onclick="|getRegisterView()|">Register</button>
+   </div>
 </body>
 </html>

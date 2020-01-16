@@ -74,7 +74,7 @@
     <input class="subt" type="submit" value="Delete" />
 </form>
 
-<form class="putfield" action="/static/delete/{id}" th:object="${products}" method="DELETE">
+<form class="putfield" action="/static/delete/{id}" th:object="${products}" method="PUT">
     <th>ID:</th>
     <input type="text" name="id" field="${products.id}" />
     <th>Item:</th>
@@ -85,9 +85,5 @@
 
 
 </body>
-<footer class="footer">
-    <p>Created by our little group</p>
-    <p>Bring me back: <a href=http://127.0.0.1:8080>
-        Homepage</a></p>
-</footer>
+
 </html>
