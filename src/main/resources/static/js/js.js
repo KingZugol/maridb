@@ -8,6 +8,18 @@ function getEffects(){
     xhr.open("GET", "/effects");
     xhr.send()
 }
+
+function getWeedByEffect(effect){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET", "/effects/" + effect);
+    xhr.send();
+}
+
 function getFlavor() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -86,6 +98,16 @@ function getNameSearchResults(){
     xhr.send(searchString);
 }
 
+function getWeedComplete(name){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            document.getElementById("content").innerHTML = xhr.response;
+        }
+    }
+    xhr.open("GET","/name/" + name);
+    xhr.send();
+}
 function getRegisterView(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
