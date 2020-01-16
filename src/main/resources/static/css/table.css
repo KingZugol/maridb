@@ -1,0 +1,90 @@
+body{
+    background-color: #42455a;
+    color:white;
+}
+.table1tr {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.jpg{
+    width: 9%;
+    height: auto;
+    position: relative;
+    left: 91%;
+    top: -135px;
+  }
+
+.lists{
+    height: 4cm;
+    border-collapse: separate;
+    border: 1px solid black;
+}
+.love{
+    color: #19dafa;
+}
+.banner{
+    width: 90%;
+    height: 80%;
+    top:30%;
+    left:250px;
+    position:absolute;
+}
+.randomtext{
+    width: 500px;
+}
+.rp{
+    left:1250px;
+    position: absolute;
+    top: 41%;
+    height:18%
+}
+.cp{
+    left:1100px;
+    position: absolute;
+    top: 41%;
+    height:18%
+}
+.table1{
+    top:800px;
+    position: absolute;
+    left: 250px;
+    width: 30%
+}
+.delfield{
+    top:810px;
+    position: absolute;
+    left:800px;
+}
+.putfield{
+    top:850px;
+    position: absolute;
+    left: 800px;
+}
+.pic{
+    left:40%;
+    position: absolute;
+    width: 30%;
+    height: auto;
+    bottom: 65%;
+}
+.subt{
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(#E30B5C,#003153), radial-gradient(circle at top left, #800080, #E0B0FF);
+    background-origin: border-box;
+    background-clip: border-box,content-box;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #003153;
+    color: white;
+    text-align: center;
+}

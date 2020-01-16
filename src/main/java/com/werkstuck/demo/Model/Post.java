@@ -65,6 +65,9 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
+    public String getUsername() {
+        return username;
+    }
 
     public String getAuthor() {
         return author;
@@ -102,4 +105,3 @@ public class Post {
                 '}';
     }
 }
-

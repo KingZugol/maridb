@@ -2,6 +2,7 @@ package com.werkstuck.demo.Data;
 
 import com.werkstuck.demo.Model.Post;
 import com.werkstuck.demo.Model.PostRepository;
+import com.werkstuck.demo.Model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
