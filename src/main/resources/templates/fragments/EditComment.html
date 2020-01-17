@@ -1,0 +1,13 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weed</title>
+</head>
+<body>
+<div th:fragment="EditComment" th:with="post=${Post}">
+    Title: <input id="editTitle" type="text" name="title" th:value="${post.title}"><br>
+    Text: <textarea id="editBody" type="text" name="body" th:text="${post.body}"></textarea> </br>
+    <button th:data-postId="${post.postId}" th:onclick="|sendEditConfirm(this.getAttribute('data-postId'))|">save</button>
+</div>
+</body>
+</html>
