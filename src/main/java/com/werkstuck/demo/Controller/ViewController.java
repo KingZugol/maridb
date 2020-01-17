@@ -1,14 +1,12 @@
 package com.werkstuck.demo.Controller;
 
 import com.werkstuck.demo.Data.postDAO;
-import com.werkstuck.demo.Data.productDAO;
 import com.werkstuck.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.io.UnsupportedEncodingException;
 
 /* todo: ErrorController mit thymeleaf,
      JS auf eventhandler ändern
@@ -20,8 +18,6 @@ public class ViewController {
     private RestTemplate restTemplate = new RestTemplate();
     @Autowired
     public postDAO prep;
-    @Autowired
-    public productDAO prodrep;
 
     //Stellt API abfrage an strainapi für alle Effekte
     //restTemplate marshallt die Antwort in eine Array von der Klasse weedByEffekt
@@ -128,8 +124,7 @@ public class ViewController {
     }
     }
     @GetMapping("/test")
-    public String getStaticPage(Model model){
-        model.addAttribute("products", prodrep.getAll());
+    public String getStaticPage(){
         return "static";
     }
 }

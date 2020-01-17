@@ -3,8 +3,11 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="/css/table.css">
+    <script type="text/javascript" src="../js/js.js"></script>
+    <link rel="stylesheet" href="/css/basestyle.css">
 </head>
 <body class="body">
+<div th:insert="index :: navigation"></div>
 <ul class="lists">
     <h1 class="love ">Love is...</h1>
     <li>“I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.”
@@ -56,17 +59,6 @@
         <td colspan="2">Mark: 1,0</td>
     </tr>
 </table>
-
-<table class="table1">
-
-    <tr class="table1tr">
-        <th>Item</th>
-        <th>ID</th>
-    </tr>
-    <tr th:each="product : ${products}">
-        <td th:utext="${product.name}">...</td> <td th:utext="${product.id}">...</td>
-    </tr>
-
 </table>
 </body>
 
