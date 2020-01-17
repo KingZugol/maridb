@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
         */
 @Controller
 public class ViewController {
-    RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate();
     @Autowired
     public postDAO prep;
     @Autowired
@@ -38,7 +38,7 @@ public class ViewController {
     //Stellt API abfrage an strainapi für ein bestimmtes Effekt, in der Pfadvariable enthalten
     //Fragment WeedByEffekt wird zurückgeliefert und alle mittels ForEach Schleife Angezeigt
     @GetMapping("/effects/{effect}")
-    public String getWeedByEffects(Model model, @PathVariable("effect") String effect) throws UnsupportedEncodingException {
+    public String getWeedByEffects(Model model, @PathVariable("effect") String effect){
         String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/effect/" + effect;
         WeedByEffect[] weedByEffects = restTemplate.getForObject(url, WeedByEffect[].class);
         model.addAttribute("weedByEffects", weedByEffects);
@@ -77,7 +77,7 @@ public class ViewController {
 
     @GetMapping("/name")
     public String getNameView(){
-        return "fragments/NameView";
+        return "fragments/NameView :: main-search";
     }
 
     //Über die Pfadvariable wird die angeklickte Sorte abgefragt und an das Objekt weedBySearch gebunden
@@ -86,6 +86,7 @@ public class ViewController {
     public String getWeedComplete(@PathVariable("name") String name, Model model){
         String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + name;
         WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
+        assert weedBySearch != null;
         WeedCompleteObject weedComplete = weedBySearch[0];
 
         url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedComplete.getId();
@@ -105,23 +106,28 @@ public class ViewController {
     // Das Element mit Index 0 wird and weedComplete gebunden da unter Umständen die API mehr als eine Sorte züruckliefert.
     @PostMapping("/name")
     public String getNameSearchResults(@RequestBody String searchString, Model model){
-        String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + searchString;
-        WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
-        WeedCompleteObject weedComplete = weedBySearch[0];
+        try{
+            String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/name/" + searchString;
+            WeedCompleteObject[] weedBySearch = restTemplate.getForObject(url, WeedCompleteObject[].class);
+            assert weedBySearch != null;
+            WeedCompleteObject weedComplete = weedBySearch[0];
 
-        url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedComplete.getId();
-        System.out.println(url);
-        WeedEffectsForName effect = restTemplate.getForObject(url, WeedEffectsForName.class);
-        weedComplete.setEffects(effect);
+            url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/effects/" + weedComplete.getId();
+            System.out.println(url);
+            WeedEffectsForName effect = restTemplate.getForObject(url, WeedEffectsForName.class);
+            weedComplete.setEffects(effect);
 
-        url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedComplete.getId();
-        String[] flavor = restTemplate.getForObject(url, String[].class);
-        weedComplete.setFlavors(flavor);
-        model.addAttribute("weedBySearch", weedComplete);
-        model.addAttribute("allPost",prep.findByWeedId(weedComplete.getId()));
-        return "fragments/WeedComplete";
+            url = "http://strainapi.evanbusse.com/7wvDuw5/strains/data/flavors/" + weedComplete.getId();
+            String[] flavor = restTemplate.getForObject(url, String[].class);
+            weedComplete.setFlavors(flavor);
+            model.addAttribute("weedBySearch", weedComplete);
+            model.addAttribute("allPost",prep.findByWeedId(weedComplete.getId()));
+            return "fragments/WeedComplete";}
+        catch(IndexOutOfBoundsException e){
+            return "fragments/NameView :: try-again";
     }
-    @GetMapping("/static")
+    }
+    @GetMapping("/test")
     public String getStaticPage(Model model){
         model.addAttribute("products", prodrep.getAll());
         return "static";

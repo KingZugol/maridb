@@ -8,7 +8,6 @@
     <span th:each="weed : ${weedByEffect}">
         <span th:class="tag" th:utext="${weed.effect}" th:data-effect="${weed.effect}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|">.</span>
     </span>
-    <script type="text/javascript" th:src="@{/static/js/effectsScript.js}"></script>
 </div>
 
 <div th:fragment="weedByEffects">

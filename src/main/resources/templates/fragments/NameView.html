@@ -4,7 +4,16 @@
     <title>Weed</title>
 </head>
 <body>
-<input type="text" id="nameSearch"> <br>
+<div th:fragment="main-search">
+    <h2>Enter the name of the weed you wish to search for</h2>
+    <label for="nameSearch">Seach here!: </label><input type="text" id="nameSearch"/> <br>
 <button th:onclick="|getNameSearchResults()|" th:class="subt">Search for Weed</button>
+</div>
+
+<div th:fragment="try-again">
+    <h2>No results, please try again</h2>
+    <div th:insert="this :: main-search"></div>
+</div>
+
 </body>
 </html>
