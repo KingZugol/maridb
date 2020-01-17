@@ -5,10 +5,16 @@
 </head>
 <body>
 <div th:fragment="species">
-<p th:onclick="|getBySpecies('indica')|"><a>Indica</a></p>
-<p th:onclick="|getBySpecies('sativa')|"><a>Sativa</a></p>
-<p th:onclick="|getBySpecies('hybrid')|"><a>Hybrid</a></p>
+<p th:onclick="|getBySpecies('indica')|" th:class="name-tag"><a>Indica</a></p>
+<p th:onclick="|getBySpecies('sativa')|" th:class="name-tag"><a>Sativa</a></p>
+<p th:onclick="|getBySpecies('hybrid')|" th:class="name-tag"><a>Hybrid</a></p>
 </div>
 
+<div th:fragment="weedBySpecies">
+    <h1> Weeds belonging to the <span th:with="race=${weed[0].race}" th:utext="${race}"></span> species</h1>
+    <span><span style="text-align: left" th:each="weed: ${weed}">
+        <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|" th:class="name-tag"></span>, </span>
+    </span></span>
+</div>
 </body>
 </html>

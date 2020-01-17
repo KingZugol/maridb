@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
 /* todo: ErrorController mit thymeleaf,
@@ -35,7 +33,7 @@ public class ViewController {
         String url = "http://strainapi.evanbusse.com/7wvDuw5/searchdata/effects";
         Effects[] effects = restTemplate.getForObject(url, Effects[].class);
         model.addAttribute("weedByEffect", effects);
-        return "fragments/Effects";
+        return "fragments/Effects :: effects";
     }
     //Stellt API abfrage an strainapi für ein bestimmtes Effekt, in der Pfadvariable enthalten
     //Fragment WeedByEffekt wird zurückgeliefert und alle mittels ForEach Schleife Angezeigt
@@ -44,7 +42,7 @@ public class ViewController {
         String url = "http://strainapi.evanbusse.com/7wvDuw5/strains/search/effect/" + effect;
         WeedByEffect[] weedByEffects = restTemplate.getForObject(url, WeedByEffect[].class);
         model.addAttribute("weedByEffects", weedByEffects);
-        return "fragments/WeedByEffects";
+        return "fragments/Effects :: weedByEffects";
     }
 
     @GetMapping("/flavors")
@@ -52,7 +50,7 @@ public class ViewController {
         String url = "http://strainapi.evanbusse.com/7wvDuw5/searchdata/flavors";
         String[] flavors = restTemplate.getForObject(url, String[].class);
         model.addAttribute("flavors", flavors);
-        return "fragments/Flavors";
+        return "fragments/Flavors :: flavors";
     }
 
     @GetMapping("/flavors/{flavor}")
@@ -61,12 +59,12 @@ public class ViewController {
         String url ="http://strainapi.evanbusse.com/7wvDuw5/strains/search/flavor/" + flavor;
         WeedByFlavor[] weedByFlavors = restTemplate.getForObject(url, WeedByFlavor[].class);
         model.addAttribute("WeedByFlavors", weedByFlavors);
-        return "fragments/WeedByFlavor";
+        return "fragments/Flavors :: weedByFlavor";
     }
 
     @GetMapping("/species")
     public String getSpecies(){
-        return "fragments/Species";
+        return "fragments/Species :: species";
     }
 
     @GetMapping("/species/{type}")
@@ -74,7 +72,7 @@ public class ViewController {
         String url ="http://strainapi.evanbusse.com/7wvDuw5/strains/search/race/" + species;
         Weed[] weedBySpecies = restTemplate.getForObject(url, Weed[].class);
         model.addAttribute("weed", weedBySpecies);
-        return "fragments/WeedBySpecies";
+        return "fragments/Species :: weedBySpecies";
     }
 
     @GetMapping("/name")
@@ -127,19 +125,6 @@ public class ViewController {
     public String getStaticPage(Model model){
         model.addAttribute("products", prodrep.getAll());
         return "static";
-    }
-
-    @RequestMapping(value="/static/delete/{id}", method=RequestMethod.DELETE)
-    public void deleteProduct(@PathVariable("id") int id, HttpServletResponse response){
-        response.addHeader("Custom-Delete-Header","delete");
-        Product prod=prodrep.findById(id);
-        this.prodrep.delete(prod);
-
-    }
-    @RequestMapping(value="/static/update/{id}", method=RequestMethod.PUT)
-    public void updatePrice(@PathVariable("id") int id, @RequestBody Product product, HttpServletResponse response){
-        response.addHeader("Custom-Update-Header","update");
-        prodrep.update(product,id);
     }
 }
 

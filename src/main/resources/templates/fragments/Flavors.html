@@ -9,5 +9,12 @@
         <span th:class="tag" th:utext="${weed}" th:data-flavor="${weed}" th:onclick="|getWeedByFlavor(this.getAttribute('data-flavor'))|" ></span>
     </span>
 </div>
+
+<div th:fragment="weedByFlavor">
+    <h1>Weed that tastes like: <span th:with="flavor=${WeedByFlavors[0].flavor}" th:utext="${flavor}"></span></h1>
+    <span><span style="text-align: left" th:each="weed: ${WeedByFlavors}">
+       <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|" th:class="name-tag"></span>,
+    </span></span>
+</div>
 </body>
 </html>

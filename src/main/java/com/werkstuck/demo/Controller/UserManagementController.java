@@ -23,22 +23,31 @@ public class UserManagementController {
     @GetMapping("/login")
     public String getLoginView(){
 
-        return "fragments/LoginTemp.html";
+        return "fragments/LoginTemp :: login-page";
     }
 
     /* Überprüft ob der eingegebene Username und Password mit einem Registrierten User übereinstimmen, und erstellt eine HTTPSession Cookie mit den Username. */
     @PostMapping("/login")
-    public String postLogin(HttpServletRequest request, @RequestBody String payload) throws JsonProcessingException {
+    public String postLogin(HttpServletRequest request, @RequestBody String payload, HttpServletResponse response) throws JsonProcessingException {
         User requestUser = new ObjectMapper().readValue(payload, User.class);
-        User loginUser = users.findByUsername(requestUser.getUsername());
-        if(loginUser.getUsername().equals(requestUser.getUsername()) && loginUser.getPassword().equals(requestUser.getPassword())){
-            HttpSession session = request.getSession();
-            session.setAttribute("name", loginUser.getUsername());
-            session.setAttribute("id", loginUser.getUserId());
-            session.setMaxInactiveInterval(30*60);
-            return "fragments/LoginSuccess";
+        try {
+            User loginUser = users.findByUsername(requestUser.getUsername());
+            if (loginUser != null && loginUser.getUsername().equals(requestUser.getUsername()) && loginUser.getPassword().equals(requestUser.getPassword())) {
+                HttpSession session = request.getSession();
+                session.setAttribute("name", loginUser.getUsername());
+                session.setAttribute("id", loginUser.getUserId());
+                session.setMaxInactiveInterval(30 * 60);
+                response.addHeader("login-result", "success");
+                return "fragments/LoginTemp :: login-success";
+            } else if (loginUser == null) {
+                    return "fragments/LoginTemp :: no-user";
+            } else {
+                response.addHeader("login-result", "fail");
+                return "fragments/LoginTemp :: login-fail";
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return "fragments/LoginTemp :: login-fail";
         }
-        else return "fragments/LoginTemp";
     }
     /* Invalidiert die Session falls eine existiert, und setzt alles Cookies auf null um die vom Browser zu löschen. */
     @GetMapping("/logout")
@@ -60,18 +69,22 @@ public class UserManagementController {
 
     @GetMapping("/register")
     public String getRegisterView(){
-        return "fragments/RegisterView";
+        return "fragments/RegisterView :: register-page";
     }
 
     @PostMapping("/register")
     public String postRegister(@RequestBody String payload) throws JsonProcessingException {
         User newUser = new ObjectMapper().readValue(payload, User.class);
         if(newUser.getUsername().contains("@") && newUser.getUsername().contains(".")){
+            if(users.findByUsername(newUser.getUsername()) == null){
             users.save(newUser);
-            return "redirect:/login";
+            return "fragments/LoginTemp :: register-success";}
+            else
+                return "fragments/RegisterView :: user-exists";
         }
         else {
-            return "redirect:/register";
+
+            return "fragments/RegisterView :: register-fail";
         }
     }
 }

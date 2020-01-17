@@ -5,13 +5,23 @@
 </head>
 <body>
 
-<div th:class="login-page">
+<div th:class="login-page" th:fragment="register-page">
     <p>Register a new User:</p>
-    Username:
+    Your Email <span th:id="email-invalid"></span><br>
     <input type="text" id="username"> <br>
-    Password:
+    Your Password: <br>
     <input type="text" id="pwd"> <br>
     <button th:class="log-register-button" th:onclick="|sendRegistration()|">Register</button>
+</div>
+
+<div th:fragment="register-fail">
+    <p>Invalid Email</p>
+    <div th:insert="this :: register-page"></div>
+</div>
+
+<div th:fragment="user-exists">
+    <p>This Email is already in use, please log in or pick a different Email</p>
+    <div th:insert="this :: register-page"></div>
 </div>
 </body>
 </html>

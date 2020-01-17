@@ -68,22 +68,6 @@
     </tr>
 
 </table>
-<form class="delfield" action="/static/delete/{id}" th:object="${products}" method="DELETE">
-    <th>ID:</th>
-    <input type="text" name="id" field="${products.id}" />
-    <input class="subt" type="submit" value="Delete" />
-</form>
-
-<form class="putfield" action="/static/delete/{id}" th:object="${products}" method="PUT">
-    <th>ID:</th>
-    <input type="text" name="id" field="${products.id}" />
-    <th>Item:</th>
-    <input type="text" name="name" field="${products.name}" />
-    <input class="subt" type="submit" value="Update" />
-</form>
-
-
-
 </body>
 
 </html>

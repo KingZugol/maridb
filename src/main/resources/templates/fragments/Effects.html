@@ -4,10 +4,19 @@
     <title>Weed</title>
 </head>
 <body>
-<div th:fragment="weedByEffects">
-    <span th:each="weed: ${weedByEffect}">
+<div th:fragment="effects">
+    <span th:each="weed : ${weedByEffect}">
         <span th:class="tag" th:utext="${weed.effect}" th:data-effect="${weed.effect}" th:onclick="|getWeedByEffect(this.getAttribute('data-effect'))|">.</span>
     </span>
+    <script type="text/javascript" th:src="@{/static/js/effectsScript.js}"></script>
+</div>
+
+<div th:fragment="weedByEffects">
+    <h1>Weed that makes you feel: <span  th:with="effect=${weedByEffects[0]}" th:utext="${effect.effect}"></span></h1>
+    <span><span style="text-align: left" th:each="weed: ${weedByEffects}">
+        <span th:utext="${weed.name}" th:data-name="${weed.name}" th:onclick="|getWeedComplete(this.getAttribute('data-name'))|" th:class="name-tag"></span>,
+    </span></span>
+
 </div>
 </body>
 </html>

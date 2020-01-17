@@ -1,4 +1,3 @@
-//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen
 function getEffects(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -9,19 +8,6 @@ function getEffects(){
     xhr.open("GET", "/effects");
     xhr.send()
 }
-
-//AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen. Gesuchte Wirkung wird als Pfadvariable weitergegeben
-function getWeedByEffect(effect){
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState==4 && xhr.status==200){
-            document.getElementById("content").innerHTML = xhr.response;
-        }
-    }
-    xhr.open("GET", "/effects/" + effect);
-    xhr.send();
-}
-
 //AJAX Abfrage an ViewController. Antwort wird in das Element Content geladen
 function getFlavor() {
     var xhr = new XMLHttpRequest();
@@ -79,7 +65,14 @@ function sendLogin(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
+            if(this.getResponseHeader("login-result") === "success"){
+            document.getElementById("content").innerHTML = xhr.response;
+            setTimeout(function(){
             window.location.reload();
+            },3000)
+        };}
+        else {
+            document.getElementById("content").innerHTML = xhr.response;
         }
     }
     xhr.open("POST", "/login");

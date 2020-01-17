@@ -4,6 +4,9 @@ body {
 .comment-block{
     border-style: solid;
     border-width: 1px;
+    width:30%;
+    height:30%;
+    line-height: 0.5;
 }
 .header-button{
     padding: 30px 70px;
@@ -73,8 +76,9 @@ body {
     top:1px;
 }
 
-
-
+.post{
+    font-weight:bold;
+}
 #content{
     text-align: center;
     margin-top: 20px;
@@ -99,4 +103,9 @@ body {
 }
 .tag:hover {
     background: blue;
+}
+
+.name-tag:hover {
+    text-decoration: underline;
+    color: #003153;
 }

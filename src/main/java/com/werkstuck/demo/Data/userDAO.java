@@ -20,8 +20,13 @@ public class userDAO implements UserRepository<User> {
         for(User user : users){
             if(user.getUsername().equals(username)){
                 index = users.indexOf(user);
+                break;
             }
         }
+        if(index == -1){
+            return null;
+        }
+        else
         return users.get(index);
     }
 
