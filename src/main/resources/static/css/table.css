@@ -1,6 +1,9 @@
 body{
     background-color: #42455a;
     color:white;
+    margin: 0;
+    height: auto;
+    min-height: 100%;
 }
 .table1tr {
     border-collapse: collapse;
@@ -19,7 +22,7 @@ table, th, td {
   }
 
 .lists{
-    height: 4cm;
+    height: 1.7cm;
     border-collapse: separate;
     border: 1px solid black;
 }
@@ -84,7 +87,9 @@ table, th, td {
     left: 0;
     bottom: 0;
     width: 100%;
+    height: 2.75em;
     background-color: #003153;
     color: white;
     text-align: center;
+    float:left;
 }

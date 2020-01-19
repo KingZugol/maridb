@@ -21,7 +21,7 @@
   <button th:onclick="|getLoginView()|" th:if="${session.isEmpty()}" class="header-button login-button" id="LoginButton"> Login</button>
   <button th:unless="${session.isEmpty()}" th:onclick="sendLogout()" class="header-button login-button" id="LogoutButton"> Logout</button>
 </div>
-  <div id="content">
+  <div id="content" class="content">
     <div class="banner">
       <div class="randomtext">
         <h1> We believe that there are no Data you should be ashamed of...</h1>
@@ -37,4 +37,13 @@
         </p>
         <img class="pic" src="jpg/img2.jpg" alt="Selfsame">
       </div></div></div>
+<br>
+<br>
+<br>
+<br>
 </body>
+<footer class="footer">
+  <p>Bring me back: <a href=/test>
+    Homepage</a></p>
+</footer>
+</html>

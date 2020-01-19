@@ -34,7 +34,9 @@ body {
     top:1px;
 }
 
-
+.content{
+    height:100%;
+}
 .login-button{
     position: relative;
 }
